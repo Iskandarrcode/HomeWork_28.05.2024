@@ -1,25 +1,20 @@
-// import 'package:dars5/controllers/todo_controllers.dart';
+// // ignore: file_names
+// import 'package:dars5/controllers/note_controller.dart';
 // import 'package:flutter/material.dart';
 
-// class ToDoEdit extends StatefulWidget {
-//   final int index;
-//   final ToDoController toDoControllerr;
-//   ToDoEdit({
-//     super.key,
-//     required this.toDoControllerr,
-//     required this.index,
-//   });
+// // ignore: must_be_immutable
+// class NoteAdd extends StatefulWidget {
+//   NoteController noteController = NoteController();
+//    NoteAdd({super.key, required this.noteController});
 
 //   @override
-//   State<ToDoEdit> createState() => _ToDoEditDialogState();
+//   State<NoteAdd> createState() => _NoteAddState();
 // }
 
-// class _ToDoEditDialogState extends State<ToDoEdit> {
-//   final TextEditingController indexController = TextEditingController();
+// class _NoteAddState extends State<NoteAdd> {
 //   final TextEditingController idController = TextEditingController();
 //   final TextEditingController titleController = TextEditingController();
-//   final TextEditingController descriptionController = TextEditingController();
-//   final TextEditingController dateController = TextEditingController();
+//   final TextEditingController contentController = TextEditingController();
 
 //   final _formkey = GlobalKey<FormState>();
 
@@ -73,7 +68,7 @@
 //               },
 //             ),
 //             TextFormField(
-//               controller: descriptionController,
+//               controller: contentController,
 //               textInputAction: TextInputAction.next,
 //               decoration: const InputDecoration(
 //                 label: Text("Description"),
@@ -90,37 +85,6 @@
 //                 }
 //               },
 //             ),
-//             TextFormField(
-//               controller: dateController,
-//               textInputAction: TextInputAction.next,
-//               decoration: const InputDecoration(
-//                 label: Text("Date"),
-//               ),
-//               validator: (value) {
-//                 if (value == null || value.trim().isEmpty) {
-//                   return "Input Date";
-//                 }
-//                 return null;
-//               },
-//               onSaved: (newTodo) {
-//                 if (newTodo != null) {
-//                   title = newTodo;
-//                 }
-//               },
-//             ),
-//             const SizedBox(height: 10),
-//             TextButton(
-//               onPressed: () async {
-//                 selectedDate = await showDatePicker(
-//                   context: context,
-//                   firstDate: DateTime(DateTime.now().year),
-//                   lastDate: DateTime(DateTime.now().year + 1),
-//                 );
-//               },
-//               child: const Text(
-//                 'Choose new data for your task',
-//               ),
-//             ),
 //           ],
 //         ),
 //       ),
@@ -135,11 +99,11 @@
 //           onPressed: () {
 //             if (_formkey.currentState!.validate()) {
 //               _formkey.currentState!.save();
-//               widget.toDoControllerr.todoEdit(
-//                 int.parse(indexController.text),
+//               widget.noteController.noteAdd(
+//                 idController.text,
 //                 titleController.text,
-//                 descriptionController.text,
-//                 DateTime.parse(dateController.text),
+//                 contentController.text,
+//                 DateTime.now(),
 //               );
 //               Navigator.pop(context);
 //             }
@@ -156,48 +120,31 @@
 // }
 
 
-import 'package:dars5/controllers/todo_controllers.dart';
 import 'package:flutter/material.dart';
+import 'package:dars5/controllers/note_controller.dart';
 
-class ToDoEdit extends StatefulWidget {
-  final int index;
-  final ToDoController toDoControllerr;
+class NoteAdd extends StatefulWidget {
+  final NoteController noteController;
 
-  ToDoEdit({
-    super.key,
-    required this.toDoControllerr,
-    required this.index,
-  });
+  NoteAdd({Key? key, required this.noteController}) : super(key: key);
 
   @override
-  State<ToDoEdit> createState() => _ToDoEditDialogState();
+  _NoteAddState createState() => _NoteAddState();
 }
 
-class _ToDoEditDialogState extends State<ToDoEdit> {
-  late final TextEditingController idController;
-  late final TextEditingController titleController;
-  late final TextEditingController descriptionController;
-  late final TextEditingController dateController;
-
-  final _formkey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    final todoItem = widget.toDoControllerr.list[widget.index];
-    idController = TextEditingController(text: todoItem.id);
-    titleController = TextEditingController(text: todoItem.title);
-    descriptionController = TextEditingController(text: todoItem.description);
-    dateController = TextEditingController(text: todoItem.dates.toIso8601String());
-  }
+class _NoteAddState extends State<NoteAdd> {
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: const Color.fromARGB(255, 27, 42, 107),
-      title: const Text("Edit todo"),
+      title: const Text("Add Note"),
       content: Form(
-        key: _formkey,
+        key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -205,11 +152,11 @@ class _ToDoEditDialogState extends State<ToDoEdit> {
               controller: idController,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
-                label: Text("ID"),
+                labelText: "ID",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Input ID";
+                  return "Please enter an ID";
                 }
                 return null;
               },
@@ -218,57 +165,27 @@ class _ToDoEditDialogState extends State<ToDoEdit> {
               controller: titleController,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
-                label: Text("Title"),
+                labelText: "Title",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Input Title";
+                  return "Please enter a title";
                 }
                 return null;
               },
             ),
             TextFormField(
-              controller: descriptionController,
+              controller: contentController,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
-                label: Text("Description"),
+                labelText: "Description",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Input Description";
+                  return "Please enter a description";
                 }
                 return null;
               },
-            ),
-            TextFormField(
-              controller: dateController,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                label: Text("Date"),
-              ),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return "Input Date";
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: () async {
-                DateTime? selectedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(DateTime.now().year),
-                  lastDate: DateTime(DateTime.now().year + 1),
-                );
-                if (selectedDate != null) {
-                  dateController.text = selectedDate.toIso8601String();
-                }
-              },
-              child: const Text(
-                'Choose new date for your task',
-              ),
             ),
           ],
         ),
@@ -282,13 +199,12 @@ class _ToDoEditDialogState extends State<ToDoEdit> {
         ),
         ElevatedButton(
           onPressed: () {
-            if (_formkey.currentState!.validate()) {
-              widget.toDoControllerr.todoEdit(
-                widget.index,
+            if (_formKey.currentState!.validate()) {
+              widget.noteController.noteAdd(
                 idController.text,
                 titleController.text,
-                descriptionController.text,
-                DateTime.parse(dateController.text),  // Parse the date string to DateTime
+                contentController.text,
+                DateTime.now(),
               );
               Navigator.pop(context);
             }
@@ -297,7 +213,7 @@ class _ToDoEditDialogState extends State<ToDoEdit> {
             backgroundColor: Colors.blue,
             foregroundColor: Colors.white,
           ),
-          child: const Text("Save"),
+          child: const Text("Add"),
         ),
       ],
     );

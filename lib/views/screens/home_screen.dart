@@ -1,7 +1,7 @@
 import 'package:dars5/models/son.dart';
 import 'package:dars5/notifiers/son_taminlovchi.dart';
 import 'package:dars5/views/widgets/costom_driver.dart';
-import 'package:dars5/views/widgets/text_widget.dart';
+import 'package:dars5/views/widgets/text_widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

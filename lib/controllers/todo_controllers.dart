@@ -1,4 +1,4 @@
-import 'package:dars5/models/model_todo.dart';
+import 'package:dars5/models/todo_model.dart';
 import 'package:flutter/material.dart';
 
 class ToDoController with ChangeNotifier {

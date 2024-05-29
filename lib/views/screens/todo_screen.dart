@@ -1,11 +1,10 @@
 import 'package:dars5/controllers/todo_controllers.dart';
 import 'package:dars5/notifiers/todo_notifier.dart';
 import 'package:dars5/views/widgets/costom_driver.dart';
-import 'package:dars5/views/widgets/todo_add.dart';
-import 'package:dars5/views/widgets/todo_edit.dart';
-import 'package:dars5/views/widgets/todo_item.dart';
+import 'package:dars5/views/widgets/todo_widgets/todo_add.dart';
+import 'package:dars5/views/widgets/todo_widgets/todo_edit.dart';
+import 'package:dars5/views/widgets/todo_widgets/todo_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ToDoScreen extends StatefulWidget {
   const ToDoScreen({super.key});

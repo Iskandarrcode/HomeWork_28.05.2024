@@ -16,11 +16,16 @@ class SettingsScreen extends StatelessWidget {
       drawer: const CustomDrawer(),
       body: ListView(
         children: [
-          SwitchListTile(
-            value: SettingsNotifier.of(context).settings.themeMode ==
-                ThemeMode.dark,
-            onChanged: SettingsNotifier.of(context).toggleThemeMode,
-            title: const Text("Dakr Mode"),
+          ListenableBuilder(
+            listenable: SettingsNotifier.of(context),
+            builder: (context, child) {
+              return SwitchListTile(
+                value: SettingsNotifier.of(context).settings.themeMode ==
+                    ThemeMode.dark,
+                onChanged: SettingsNotifier.of(context).toggleThemeMode,
+                title: const Text("Dakr Mode"),
+              );
+            },
           ),
         ],
       ),

@@ -1,4 +1,4 @@
-import 'package:dars5/views/widgets/inner_text_widget.dart';
+import 'package:dars5/views/widgets/text_widgets/inner_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class TextWidget extends StatelessWidget {

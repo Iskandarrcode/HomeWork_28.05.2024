@@ -1,8 +1,8 @@
 import 'package:dars5/views/screens/home_screen.dart';
+import 'package:dars5/views/screens/note_screen.dart';
 import 'package:dars5/views/screens/settings_screen.dart';
 import 'package:dars5/views/screens/todo_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -21,7 +21,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (ctx) {
-                return HomeScreen();
+                return const HomeScreen();
               }));
             },
             child: const Row(
@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (ctx) {
-                return ToDoScreen();
+                return const ToDoScreen();
               }));
             },
             child: const Row(
@@ -62,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                return Placeholder();
+                return const NoteScreen();
               }));
             },
             child: const Row(
@@ -83,7 +83,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (ctx) {
-                return SettingsScreen();
+                return const SettingsScreen();
               }));
             },
             child: const Row(
